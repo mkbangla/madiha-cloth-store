@@ -17,9 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
     ]);
     })
-    ->booted(function ($app) {
-        $app->singleton(\App\Services\CartService::class);
-    })
+    
 
     ->withExceptions(function (Exceptions $exceptions) {
         //
