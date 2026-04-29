@@ -10,12 +10,17 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    
+
     ->withMiddleware(function (Middleware $middleware) {
-        // Admin middleware alias
-        $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        ]);
+    $middleware->alias([
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+    ]);
     })
+    ->booted(function ($app) {
+        $app->singleton(\App\Services\CartService::class);
+    })
+
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })
