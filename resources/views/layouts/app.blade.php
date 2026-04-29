@@ -62,7 +62,14 @@
 
                 <a href="{{ route('cart.index') }}" class="relative text-gray-500 hover:text-gray-900 p-1">
                     <i class="fas fa-shopping-bag text-sm"></i>
-                    @php $cartCount = app(\App\Services\CartService::class)->count(); @endphp
+                    @php 
+                        try {
+                            $cartCount = app(\App\Services\CartService::class)->count(); 
+                        } catch(\Exception $e) {
+                            $cartCount = 0;
+                        }
+                    @endphp
+                    
                     @if($cartCount > 0)
                         <span class="absolute -top-1 -right-1 bg-gray-900 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center leading-none">{{ $cartCount }}</span>
                     @endif
